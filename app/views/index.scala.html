@@ -1,0 +1,24 @@
+@(title: String)
+@* @import views.tags._ *@
+@import helper._
+
+@main(title) {
+    languages accepted by the browser -> <h3>@play.mvc.Http.Context.current().request().acceptLanguages()</h3>
+@*    message from file retrieved in controller using std Play i18n and passed as parameter -> <h3>@message</h3>
+    message from file retrieved using std Play i18n tag in template -> <h3>@Messages("hello")</h3>*@
+
+    message from DB retrieved using custom Db i18n Messages -> <h3>@tags.dbMsg("hello")</h3>
+                                              <br>
+    <h3>Current lang code in cookies is: "@play.mvc.Http.Context.current().request().cookies().get("langCode").value()"</h3>
+    @*<form action="@controllers.Application.defaultAction()" method="get">
+    <select name="langList[]" onchange="this.form.submit()">
+    <option value="o1">En</option>
+    <option value="o2">Ru</option>
+    </select>
+    </form>*@
+
+    <br>
+
+
+
+}
