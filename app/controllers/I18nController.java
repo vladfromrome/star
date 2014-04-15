@@ -4,6 +4,7 @@ import com.avaje.ebean.Ebean;
 import models.dbmessages.Key;
 import models.dbmessages.Language;
 import models.dbmessages.Message;
+import models.translatable.Sport;
 import play.Logger;
 import play.mvc.*;
 
@@ -65,6 +66,14 @@ public class I18nController extends Controller {
         hello.addMessage(en, "hellotestmsgFromDb");
         hello.addMessage(ru, "приветтестовоесообщениеИзБд");
         hello.addMessage(it, "ciaomessagiotestDaBd");
+
+        Sport football = new Sport("football","Football","Футбол");
+        Sport volleyball = new Sport("volleyball","Volleyball","Волейбол");
+        Sport tennis = new Sport("tennis","Tennis","Теннис");
+
+        football.save();
+        volleyball.save();
+        tennis.save();
     }
 
     public static void deleteAll() {

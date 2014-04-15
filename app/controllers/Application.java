@@ -32,7 +32,12 @@ public class Application extends Controller {
         return ok(views.html.index.render(i18nFromDbmessage));
     }
 
-    /*public static Result sport() {
+
+
+}
+
+
+/*public static Result sport() {
         return controllers.Application.index();
     }
 
@@ -46,4 +51,3 @@ public class Application extends Controller {
         b.addTranslation(new SportTeam_translation("ru","СПАРТАК",b));
         b.save();
     }*/
-}
