@@ -38,10 +38,13 @@ public class I18nController extends Controller {
         return ok("OK");
     }
 
+    /**
+     * @return A String of links to set language.
+     */
     public static String langLinks() {
         String s = "";
         for (String code: Language.getSupportedLangCodes()){
-            s+="<a href='"+hosturl+code+"'>"+Language.FIND.where().eq("code",code).findUnique().displayName+"</a>&#160;&#160;&#160;";
+            s+="<a href='"+hosturl+code+"'>"+Language.getByCode(code).displayName+"</a>&#160;&#160;&#160;";
         }
         return s;
     }

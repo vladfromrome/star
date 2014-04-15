@@ -1,4 +1,4 @@
-package models;
+package models.garbage;
 
 /**
  * Created with IntelliJ IDEA.

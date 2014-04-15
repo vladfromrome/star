@@ -39,6 +39,9 @@ public class Language extends Model {
         this.save();
     }
 
+    /**
+     * @return List of language codes for all Languages supported by the application
+     */
     public static List<String> getSupportedLangCodes(){
         List<String> codes = new ArrayList<String>();
         for (Language l:Language.FIND.all()){
@@ -47,6 +50,10 @@ public class Language extends Model {
         return codes;
     }
 
+    /**
+     * Finds a match for supported languages and requested by the user's browser.
+     * @return Code of the identified language.
+     */
     public static String getLangCodeFromReq(List<play.i18n.Lang> requestLangs){
         String code=DEFAULTLANGCODE;
         langCodesearch:
@@ -58,8 +65,15 @@ public class Language extends Model {
                 }
             }
         }
-        Logger.info("The language code from request is \""+code+"\"");
+        Logger.info("The language code retrieved from request is \""+code+"\"");
         return code;
+    }
+
+    /**
+     * @return Language object corresponging to the given language code.
+     */
+    public static Language getByCode(String langCode){
+        return FIND.where().eq("code",langCode).findUnique();
     }
 
 

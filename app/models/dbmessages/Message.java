@@ -32,4 +32,19 @@ public class Message extends Model {
         this.value = value;
         this.save();
     }
+
+    /**
+     * Get Message by Key object and Language object
+     */
+    public static Message get(Key key,Language lang){
+        return FIND.where().eq("key",key).eq("lang",lang).findUnique();
+    }
+
+    /**
+     * Get Message by Key object and langCode
+     */
+    public static Message get(Key key, String langCode){
+        return FIND.where().eq("key",key).eq("lang.code",langCode).findUnique();
+    }
+
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User: Vladimir Romanov
+ * Author: Vladimir Romanov
  * Date: 05.04.14
  * Time: 17:30
  */
@@ -38,10 +38,17 @@ public class Key extends Model {
     }
 
     /**
+     * @return Key object for the given keyword.
+     */
+    public static Key getByKeyword(String keyword){
+        return FIND.where().eq("keyword",keyword).findUnique();
+    }
+
+    /**
      * Assigns a new message to the key and saves it into DB.
      */
     public void addMessage(Language lang, String value) {
-        Message m = Message.FIND.where().eq("key",this).eq("lang",lang).findUnique();
+        Message m = Message.get(this,lang);
         if (m!=null){
             m.value=value;
             m.save();
@@ -63,18 +70,18 @@ public class Key extends Model {
     }
 
     /**
-     * @return A message from db corresponding to the first supported language in a given set of languages and a keyword.
-     * Returns default value if there is no supported languages in the set.
+     * @return A message from db corresponding to the given language code and keyword.
+     * Returns default value if there is no translation for the given language.
      */
     public static String getMessage(String langCode, String keyword) {
         String s = "";
         try {
-            Key k=Key.FIND.where().eq("keyword",keyword).findUnique();
+            Key k=Key.getByKeyword(keyword);
             try {
-                Message m = Message.FIND.where().eq("key",k).eq("lang.code",langCode).findUnique();
+                Message m = Message.get(k,langCode);
                 s+=m.value;
             } catch (Exception e){
-                Logger.info("i18n Db messages: value not found for key \""+k.keyword+"\" and language "+"\""+Language.FIND.where().eq("code",langCode).findUnique().displayName+"\". Return default value: \""+k.defaultValue+"\"");
+                Logger.info("i18n Db messages: value not found for key \""+k.keyword+"\" and language "+"\""+Language.getByCode(langCode).displayName+"\". Return default value: \""+k.defaultValue+"\"");
                 s+="DefaultValue: "+ k.defaultValue;
             }
         }  catch (Exception e){
