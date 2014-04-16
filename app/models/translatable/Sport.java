@@ -1,9 +1,11 @@
 package models.translatable;
 
 import models.dbmessages.Language;
+import play.Logger;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +15,16 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 @Entity
-public class Sport extends Translatable {
+public class Sport extends Model implements TranslatableInterface{
     public static Model.Finder<Long,Sport> FIND = new Model.Finder<>(Long.class,Sport.class);
+    @Id
+    public Long id;
+    @Column(unique = true)
+    public String tag;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name="translatable_id", referencedColumnName = "translatable_id")
+    public List<Translation> translations = new ArrayList<Translation>();
 
     public Sport(String tag, String englishLabel, String russianLabel){
         this.tag = tag;
@@ -26,6 +35,22 @@ public class Sport extends Translatable {
 
     public static Sport getByTag(String tag){
         return FIND.where().eq("tag",tag).findUnique();
+    }
+
+    public String getTranslationByCode(String langCode) {
+        for(Translation st : translations){
+            if(langCode.equals(st.language.code)){
+                return st.label;
+            }
+        }
+        return this.tag;
+    }
+    public String getTranslation(){
+        try {
+            return getTranslationByCode(Language.getCurrentLanguageCode());
+        } catch (Exception e){
+            return "translationExceptionMsg";
+        }
     }
 
     public static String getSportListHtml(){

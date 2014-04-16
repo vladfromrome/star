@@ -6,6 +6,7 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 /**
  * Author: Vladimir Romanov
@@ -19,19 +20,15 @@ public class Translation extends Model{
     public static Model.Finder<Long, Translation> FIND = new Finder<>(Long.class, Translation.class);
 
 
-    public Long translatable_id;
+    //public Long translatable_id;
     public String label;
-
     @ManyToOne
     public Language language;
 
-    /**
-     * Constructor autosaves entity to DB.
-     */
     public Translation(String label, Language language) {
         this.label = label;
         this.language = language;
-        this.save();
+        //this.save();
     }
 
 }

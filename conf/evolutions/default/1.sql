@@ -38,7 +38,7 @@ create table sport (
 
 create table translation (
   id                        bigint not null,
-  translatable_id           bigint,
+  sport_id                  bigint not null,
   label                     varchar(255),
   language_id               integer,
   constraint pk_translation primary key (id))
@@ -58,8 +58,10 @@ alter table message add constraint fk_message_key_1 foreign key (key_id) referen
 create index ix_message_key_1 on message (key_id);
 alter table message add constraint fk_message_lang_2 foreign key (lang_id) references language (id);
 create index ix_message_lang_2 on message (lang_id);
-alter table translation add constraint fk_translation_language_3 foreign key (language_id) references language (id);
-create index ix_translation_language_3 on translation (language_id);
+alter table translation add constraint fk_translation_sport_3 foreign key (sport_id) references sport (id);
+create index ix_translation_sport_3 on translation (sport_id);
+alter table translation add constraint fk_translation_language_4 foreign key (language_id) references language (id);
+create index ix_translation_language_4 on translation (language_id);
 
 
 

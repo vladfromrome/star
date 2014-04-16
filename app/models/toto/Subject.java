@@ -15,7 +15,6 @@ import java.util.Map;
  * Date: 15.04.14
  * Time: 10:29
  */
-
 public class Subject extends Translatable {
 
 //    @Id

@@ -21,7 +21,7 @@ abstract public class Translatable extends Model{
 
     @Column(unique = true)
     public String tag;
-    //@OneToMany (cascade = CascadeType.ALL)
+    //@OneToMany
     @JoinColumn(name="translatable_id", referencedColumnName = "translatable_id")
     public List<Translation> translations = new ArrayList<Translation>();
 
