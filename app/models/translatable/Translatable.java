@@ -19,7 +19,7 @@ abstract public class Translatable extends Model{
     public Long id;
 
 
-    @Column(unique = true)
+    /*@Column(unique = true)
     public String tag;
     //@OneToMany
     @JoinColumn(name="translatable_id", referencedColumnName = "translatable_id")
@@ -42,6 +42,6 @@ abstract public class Translatable extends Model{
         } catch (Exception e){
             return "translationExceptionMsg";
         }
-    }
+    }*/
 
 }

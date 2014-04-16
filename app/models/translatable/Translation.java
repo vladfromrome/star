@@ -25,6 +25,11 @@ public class Translation extends Model{
     @ManyToOne
     public Language language;
 
+    /*@ManyToOne
+    public Sport sport;*/
+    /*@ManyToOne
+    public Subject subject;*/
+
     public Translation(String label, Language language) {
         this.label = label;
         this.language = language;

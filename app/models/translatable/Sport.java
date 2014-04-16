@@ -1,7 +1,6 @@
 package models.translatable;
 
 import models.dbmessages.Language;
-import play.Logger;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -16,13 +15,15 @@ import java.util.List;
 @SuppressWarnings("serial")
 @Entity
 public class Sport extends Model implements TranslatableInterface{
-    public static Model.Finder<Long,Sport> FIND = new Model.Finder<>(Long.class,Sport.class);
     @Id
+    @Column(name = "sportId")
     public Long id;
+    public static Model.Finder<Long,Sport> FIND = new Model.Finder<>(Long.class,Sport.class);
+
     @Column(unique = true)
     public String tag;
-
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)     //in fact it is one-to-many if it is a unidirectional relationship and the actual "@OneToMany" doesn't work here
+    @JoinTable (name = "Sport_Translation")
     //@JoinColumn(name="translatable_id", referencedColumnName = "translatable_id")
     public List<Translation> translations = new ArrayList<Translation>();
 
@@ -37,7 +38,7 @@ public class Sport extends Model implements TranslatableInterface{
         return FIND.where().eq("tag",tag).findUnique();
     }
 
-    public String getTranslationByCode(String langCode) {
+    public String getTranslationByLangCode(String langCode) {
         for(Translation st : translations){
             if(langCode.equals(st.language.code)){
                 return st.label;
@@ -47,7 +48,7 @@ public class Sport extends Model implements TranslatableInterface{
     }
     public String getTranslation(){
         try {
-            return getTranslationByCode(Language.getCurrentLanguageCode());
+            return getTranslationByLangCode(Language.getCurrentLanguageCode());
         } catch (Exception e){
             return "translationExceptionMsg";
         }

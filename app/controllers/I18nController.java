@@ -5,6 +5,7 @@ import models.dbmessages.Key;
 import models.dbmessages.Language;
 import models.dbmessages.Message;
 import models.translatable.Sport;
+import models.translatable.Subject;
 import models.translatable.Translation;
 import play.Logger;
 import play.mvc.*;
@@ -73,6 +74,10 @@ public class I18nController extends Controller {
         sportlist.addMessage(ru, "Список видов спорта");
         sportlist.addMessage(it, "Lista dei tipi degli sport");
 
+        Key subjectlist = new Key("subjectlist", "List of teams");
+        subjectlist.addMessage(en, "List of teams");
+        subjectlist.addMessage(ru, "Список команд");
+        subjectlist.addMessage(it, "Lista squadre");
 
 
         Sport football = new Sport("football","Football","Футбол");
@@ -82,17 +87,28 @@ public class I18nController extends Controller {
         football.save();
         volleyball.save();
         tennis.save();
+
+        Subject spartak = new Subject("spartak","Spartak","Спартак");
+        Subject zenit = new Subject("zenit","Zenit","Зенит");
+        Subject cska = new Subject("cska","FC CSKA","ЦСКА");
+        spartak.save();
+        zenit.save();
+        cska.save();
+
     }
 
     public static void deleteAll() {
-        List<Translation> translations = Translation.FIND.all();
-        Ebean.delete(translations);
+
         List<Sport> sports = Sport.FIND.all();
         Ebean.delete(sports);
+        List<Subject> subjects = Subject.FIND.all();
+        Ebean.delete(subjects);
         List<Message> messages = Message.FIND.all();
         Ebean.delete(messages);
         List<Key> keys = Key.FIND.all();
         Ebean.delete(keys);
+        List<Translation> translations = Translation.FIND.all();
+        Ebean.delete(translations);
         List<Language> languages = Language.FIND.all();
         Ebean.delete(languages);
 
