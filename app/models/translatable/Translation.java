@@ -16,7 +16,10 @@ import javax.persistence.ManyToOne;
 public class Translation extends Model{
     @Id
     public Long id;
+    public static Model.Finder<Long, Translation> FIND = new Finder<>(Long.class, Translation.class);
 
+
+    public Long translatable_id;
     public String label;
 
     @ManyToOne

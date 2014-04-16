@@ -5,6 +5,7 @@ import models.dbmessages.Key;
 import models.dbmessages.Language;
 import models.dbmessages.Message;
 import models.translatable.Sport;
+import models.translatable.Translation;
 import play.Logger;
 import play.mvc.*;
 
@@ -67,16 +68,25 @@ public class I18nController extends Controller {
         hello.addMessage(ru, "приветтестовоесообщениеИзБд");
         hello.addMessage(it, "ciaomessagiotestDaBd");
 
-        Sport football = new Sport("football","Football","Футбол");
+        Key sportlist = new Key("sportlist", "List of kinds of sports");
+        sportlist.addMessage(en, "List of kinds of sports");
+        sportlist.addMessage(ru, "Список видов спорта");
+        sportlist.addMessage(it, "Lista dei tipi degli sport");
+
+
+
+        /*Sport football = new Sport("football","Football","Футбол");
         Sport volleyball = new Sport("volleyball","Volleyball","Волейбол");
         Sport tennis = new Sport("tennis","Tennis","Теннис");
 
         football.save();
         volleyball.save();
-        tennis.save();
+        tennis.save();*/
     }
 
     public static void deleteAll() {
+        List<Translation> translations = Translation.FIND.all();
+        Ebean.delete(translations);
         List<Message> messages = Message.FIND.all();
         Ebean.delete(messages);
         List<Key> keys = Key.FIND.all();

@@ -13,14 +13,15 @@ import java.util.List;
  * Time: 14:25
  */
 @MappedSuperclass
-public class Translatable extends Model{
+abstract public class Translatable extends Model{
     @Id
     public Long id;
 
 
     @Column(unique = true)
     public String tag;
-    @ManyToMany(cascade = CascadeType.ALL)
+    //@OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name="translatable_id", referencedColumnName = "translatable_id")
     public List<Translation> translations = new ArrayList<Translation>();
 
     public String getTranslationByCode(String langCode) {
@@ -33,7 +34,11 @@ public class Translatable extends Model{
     }
 
     public String getTranslation(){
+        try {
          return getTranslationByCode(Language.getCurrentLanguageCode());
+        } catch (Exception e){
+            return "translationExceptionMsg";
+        }
     }
 
 }

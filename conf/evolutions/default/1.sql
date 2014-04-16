@@ -52,17 +52,12 @@ create table sport_team_translation (
 
 create table translation (
   id                        bigint not null,
+  translatable_id           bigint,
   label                     varchar(255),
   language_id               integer,
   constraint pk_translation primary key (id))
 ;
 
-
-create table sport_translation (
-  sport_id                       bigint not null,
-  translation_id                 bigint not null,
-  constraint pk_sport_translation primary key (sport_id, translation_id))
-;
 create sequence key_seq;
 
 create sequence language_seq;
@@ -88,10 +83,6 @@ create index ix_translation_language_4 on translation (language_id);
 
 
 
-alter table sport_translation add constraint fk_sport_translation_sport_01 foreign key (sport_id) references sport (id);
-
-alter table sport_translation add constraint fk_sport_translation_translat_02 foreign key (translation_id) references translation (id);
-
 # --- !Downs
 
 drop table if exists key cascade;
@@ -101,8 +92,6 @@ drop table if exists language cascade;
 drop table if exists message cascade;
 
 drop table if exists sport cascade;
-
-drop table if exists sport_translation cascade;
 
 drop table if exists sport_team cascade;
 
