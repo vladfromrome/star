@@ -75,18 +75,20 @@ public class I18nController extends Controller {
 
 
 
-        /*Sport football = new Sport("football","Football","Футбол");
+        Sport football = new Sport("football","Football","Футбол");
         Sport volleyball = new Sport("volleyball","Volleyball","Волейбол");
         Sport tennis = new Sport("tennis","Tennis","Теннис");
 
         football.save();
         volleyball.save();
-        tennis.save();*/
+        tennis.save();
     }
 
     public static void deleteAll() {
         List<Translation> translations = Translation.FIND.all();
         Ebean.delete(translations);
+        List<Sport> sports = Sport.FIND.all();
+        Ebean.delete(sports);
         List<Message> messages = Message.FIND.all();
         Ebean.delete(messages);
         List<Key> keys = Key.FIND.all();

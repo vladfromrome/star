@@ -25,9 +25,13 @@ public class Translation extends Model{
     @ManyToOne
     public Language language;
 
+    /**
+     * Constructor autosaves entity to DB.
+     */
     public Translation(String label, Language language) {
         this.label = label;
         this.language = language;
+        this.save();
     }
 
 }

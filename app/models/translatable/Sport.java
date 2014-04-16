@@ -4,6 +4,7 @@ import models.dbmessages.Language;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 /**
  * Author: Vladimir Romanov
@@ -25,6 +26,16 @@ public class Sport extends Translatable {
 
     public static Sport getByTag(String tag){
         return FIND.where().eq("tag",tag).findUnique();
+    }
+
+    public static String getSportListHtml(){
+        List<Sport> sports = FIND.all();
+        String s="<ul>";
+        for (Sport sp:sports){
+            s+="<li>"+sp.getTranslation()+"</li>";
+        }
+        s+="</ul>";
+        return s;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package models.translatable;
 
 import models.dbmessages.Language;
+import play.Logger;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -25,8 +26,10 @@ abstract public class Translatable extends Model{
     public List<Translation> translations = new ArrayList<Translation>();
 
     public String getTranslationByCode(String langCode) {
+        Logger.info("Translations are "+translations.toString());
         for(Translation st : translations){
-            if("ru".equals(st.language.code)){
+            if(langCode.equals(st.language.code)){
+                Logger.info("checking traslation: "+st.label);
                 return st.label;
             }
         }

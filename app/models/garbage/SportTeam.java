@@ -15,7 +15,6 @@ import java.util.List;
  * Time: 9:26
  * To change this template use File | Settings | File Templates.
  */
-@Entity
 public class SportTeam extends Model {
     @Id public Long id;
     public static Finder<Long, SportTeam> FIND = new Finder<>(Long.class, SportTeam.class);

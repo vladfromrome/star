@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
  * Time: 11:29
  * To change this template use File | Settings | File Templates.
  */
-@Entity
 public class SportTeam_translation extends Model{
     @Id
     public Long id;
