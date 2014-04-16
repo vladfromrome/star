@@ -11,7 +11,7 @@ import java.util.List;
  * Date: 15.04.14
  * Time: 10:29
  */
-@Entity
+
 public class Translation {
     public Translation(String label, Language language) {
         this.label = label;

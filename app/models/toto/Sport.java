@@ -17,7 +17,6 @@ import java.util.Map;
  * Time: 9:26
  */
 @SuppressWarnings("serial")
-@Entity
 public class Sport extends Translatable {
 
 //    @Id
