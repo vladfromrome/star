@@ -1,26 +1,32 @@
 @(title: String)
-@* @import views.tags._ *@
-@import helper._
+    @* @import views.tags._ *@
+    @import helper._
 
-@main(title) {
-    Current lang code in cookies is: "@play.mvc.Http.Context.current().request().cookies().get("langCode").value()"
-    <br>
-    languages accepted by the browser -> @play.mvc.Http.Context.current().request().acceptLanguages()
-@*    message from file retrieved in controller using std Play i18n and passed as parameter -> <h3>@message</h3>
-    message from file retrieved using std Play i18n tag in template -> <h3>@Messages("hello")</h3>*@
-    <br>
-    message from DB retrieved using custom Db i18n Messages -> "@tags.dbMsg("hello")"
-                                              <br>
-
-    @*<form action="@controllers.Application.defaultAction()" method="get">
-    <select name="langList[]" onchange="this.form.submit()">
-    <option value="o1">En</option>
-    <option value="o2">Ru</option>
-    </select>
-    </form>*@
-    <br>
-    <h4>@tags.dbMsg("sportlist"):</h4>
-    @Html(models.translatable.Sport.getSportListHtml)
-    <h4>@tags.dbMsg("subjectlist"):</h4>
-    @Html(models.translatable.Subject.getSubjectListHtml)
-}
+    @main(title) {
+        Current lang code in cookies is: "@play.mvc.Http.Context.current().request().cookies().get("langCode").value()"
+        <br>
+        languages accepted by the browser -> @play.mvc.Http.Context.current().request().acceptLanguages()
+        @* message from file retrieved in controller using std Play i18n and passed as parameter -> <h3>@message</h3>
+        message from file retrieved using std Play i18n tag in template -> <h3>@Messages("hello")</h3>*@
+        <br>
+        message from DB retrieved using custom Db i18n Messages -> "@tags.dbMsg("hello")"
+        <br>
+        @*<form action="@controllers.Application.defaultAction()" method="get">
+        <select name="langList[]" onchange="this.form.submit()">
+        <option value="o1">En</option>
+        <option value="o2">Ru</option>
+        </select>
+        </form>*@
+        <h3>@Messages("hello")</h3>
+        <br>
+        <h4>@tags.dbMsg("sportlist"):</h4>
+        <ul>
+            @for(traslation <- models.translatable.Sport.getTranslationsList) {
+            <li>@traslation</li> }
+        </ul>
+        <h4>@tags.dbMsg("subjectlist"):</h4>
+        <ul>
+        @for(traslation <- models.translatable.Subject.getTranslationsList) {
+            <li>@traslation</li> }
+        </ul>
+    }

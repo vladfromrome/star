@@ -53,13 +53,12 @@ public class Subject extends Model implements TranslatableInterface {
         }
     }
 
-    public static String getSubjectListHtml(){
+    public static List<String> getTranslationsList(){
         List<Subject> subjects = FIND.all();
-        String list="<ul>";
+        List<String> list=new ArrayList<>();
         for (Subject s:subjects){
-            list+="<li>"+s.getTranslation()+"</li>";
+            list.add(s.getTranslation());
         }
-        list+="</ul>";
         return list;
     }
 

@@ -54,14 +54,13 @@ public class Sport extends Model implements TranslatableInterface{
         }
     }
 
-    public static String getSportListHtml(){
+    public static List<String> getTranslationsList(){
         List<Sport> sports = FIND.all();
-        String s="<ul>";
+        List<String> list=new ArrayList<>();
         for (Sport sp:sports){
-            s+="<li>"+sp.getTranslation()+"</li>";
+            list.add(sp.getTranslation());
         }
-        s+="</ul>";
-        return s;
+        return list;
     }
 
     @Override
